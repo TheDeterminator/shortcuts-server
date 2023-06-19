@@ -85,6 +85,16 @@ app.post('/sleep-data', async (req, res) => {
   }
 });
 
+app.get('/app-data', async (req, res) => {
+  try {
+    const appData = await fs.readFile('sleepData.json', 'utf8');
+
+    res.send(JSON.parse(appData)); // can I just do res.json(appData) here?
+  } catch (err) {
+    res.status(500).send({ error: err }); // I thought there was a res.error() method?
+  }
+})
+
 
 const PORT = process.env.PORT || 3000;
 
