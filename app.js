@@ -3,10 +3,17 @@ const url = require('url');
 const fs = require('fs').promises; // Use the promisified version
 const moment = require('moment');
 const bodyParser = require('body-parser');
-// require('dotenv').config();
+require('dotenv').config();
+const { Pool } = require('pg');
+
 
 
 const app = express();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: false
+});
 
 app.use(express.static('public'));
 
@@ -109,6 +116,19 @@ function showTimes() {
   }
   return result;
 }
+
+app.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM test_table');
+    const results = { 'results': (result) ? result.rows : null };
+    res.send(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
 
 
 const PORT = process.env.PORT || 3000;
