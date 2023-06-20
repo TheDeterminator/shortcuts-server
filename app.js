@@ -3,6 +3,8 @@ const url = require('url');
 const fs = require('fs').promises; // Use the promisified version
 const moment = require('moment');
 const bodyParser = require('body-parser');
+// require('dotenv').config();
+
 
 const app = express();
 
@@ -94,6 +96,19 @@ app.get('/app-data', async (req, res) => {
     res.status(500).send({ error: err }); // I thought there was a res.error() method?
   }
 })
+
+app.get('/times', (req, res) => {
+  res.send(showTimes());
+});
+
+function showTimes() {
+  const times = process.env.TIMES || 5;
+  let result = '';
+  for (let i = 0; i < times; i++) {
+    result += i + ' ';
+  }
+  return result;
+}
 
 
 const PORT = process.env.PORT || 3000;
