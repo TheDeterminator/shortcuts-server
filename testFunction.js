@@ -43,9 +43,9 @@ const getDateAndNotes = (dateString) => {
     return { dateTimestamp: date.trim(), notes: notes.trim() }
 };
 
-const convertDateToTimeStamp = (dateString) => {
-    return Date.parse(dateString);
-}
+// const convertDateToTimeStamp = (dateString) => {
+//     return Date.parse(dateString);
+// }
 
 const getDates = async () => {
     const fileData = await fs.readFile('goToSleepTimes.txt', 'utf8')
@@ -97,33 +97,43 @@ const dropSleepDataTable = async () => {
 }
 
 
-const insertInDataBase = async () => {
+const insertInDataBase = async () => { // TODO do this, but with wake up times and nap times and fap times
     try {
         await dropSleepDataTable()
         await buildSleepDataTable()
     } catch (err) {
         console.error(err);
-    } finally {
-        client.end();
     }
 
-    return;
     let dateData = await getDates()
-    // console.log('>>>>>>>>', { dateData })
-
-    let x = dateData[0]
-    console.log({ x })
 
     try {
-        await client.connect();
+        for (const dd of dateData) {
+            let query = 'INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *';
+            let values = [dd.dateTimestamp, 'go_to_sleep', dd.notes];
+            let res = await client.query(query, values);
+            console.log(res.rows[0]);
+        }
 
-        let query = 'INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *';
-        let values = [x.dateTimestamp, 'go_to_sleep', x.notes];
+        // array.prototype.forEach causes weird behavior with async/await
+        // dateData.forEach(async dd => {
 
-        let res = await client.query(query, values);
-        console.log(res.rows[0]);
-        console.log('>>>>>>>>>>')
-        console.log({ res })
+        // let query = 'INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *';
+        // let values = [dd.dateTimestamp, 'go_to_sleep', dd.notes];
+
+        // let res = await client.query(query, values);
+        // console.log(res.rows[0]);
+        // })
+
+
+        // Another way to do the above. But have to be cognizant of unhandled promise rejections
+        // Or using Promise.all with Array.prototype.map:
+        // await Promise.all(dateData.map(async (dd) => {
+        //     let query = 'INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *';
+        //     let values = [dd.dateTimestamp, 'go_to_sleep', dd.notes];
+        //     let res = await client.query(query, values);
+        //     console.log(res.rows[0]);
+        // }));
     } catch (err) {
         console.error(err);
     }
