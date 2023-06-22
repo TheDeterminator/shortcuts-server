@@ -29,6 +29,27 @@ app.get('/test', (req, res) => {
   return res.send({ message: 'test' });
 });
 
+app.post('/send-file', async (req, res) => {
+  console.log(`Request received from ${req.ip}`)
+  console.log('req.body', req.body)
+
+  const { textData, fileName } = req.body;
+
+  try {
+    await fs.writeFile(fileName, textData, 'utf-8');
+    console.log('File saved successfully');
+    res.status(200).send('File saved successfully');
+  } catch (err) {
+    console.error('Error saving file:', err);
+    res.status(500).send('Error saving file', err);
+  }
+});
+
+app.get('/ping', async (req, res) => { // TODO: combine with test route?
+  console.log('hit /send-file')
+  res.send({ complete: true })
+});
+
 app.post('/search', (req, res) => {
   const searchUrl = req.body.url;
   const parsedUrl = url.parse(searchUrl, true);
@@ -128,6 +149,13 @@ app.get('/db', async (req, res) => {
     console.error(err);
     res.send("Error " + err);
   }
+})
+
+app.get('/send-file-to-database', async (req, res) => {
+  const fileData = await fs.readFile('goToSleepTimes.txt', 'utf8')
+  const dateArray = fileData.split('\n')
+  // .map(line => line.split(','));
+  res.send(dateArray);
 })
 
 
