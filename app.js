@@ -4,13 +4,19 @@ const fs = require('fs').promises; // Use the promisified version
 const moment = require('moment');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-const { Pool } = require('pg');
+const { Pool, Client } = require('pg');
+const { getDates } = require('./testFunction');
 
 
 
 const app = express();
 
 const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: false
+});
+
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: false
 });
@@ -152,9 +158,7 @@ app.get('/db', async (req, res) => {
 })
 
 app.get('/send-file-to-database', async (req, res) => {
-  const fileData = await fs.readFile('goToSleepTimes.txt', 'utf8')
-  const dateArray = fileData.split('\n')
-  // .map(line => line.split(','));
+  getDates();
   res.send(dateArray);
 })
 
