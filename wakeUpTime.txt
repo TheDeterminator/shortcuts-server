@@ -1,79 +1,74 @@
 Wake up times Archive
-Date	Time
-6.24.22	~11:55AM EST
-6.25.22 	~8:05ish EST then I went outside
-6.26.22 	~7:15AM EST went outside half hour later
-6.27.22 	~9:20AM EST
+6.24.22	11:55AM EST
+6.25.22 8:05 EST (then I went outside)
+6.26.22 7:15AM EST (went outside half hour later)
+6.27.22 9:20AM EST
 6.28.22 10:09AM EST	
 6.29.22 8:50AM EST	
-6.30.22 ~8:40AM EST	
-7.1.22 ~9:30AM EST	
-7.2.22 ~7:45AM EST	
-7.3.22 ~6:30AM PST	
-7.4.22 ~6.30AM PST outside at 8am 	
-7.5.22 6:30AM PST outside at 7:50am	
-7.6.22 5:05AM PST outside at 8AM	
-7.7.22 7:20AM PST outside never	
+6.30.22 8:40AM EST	
+7.1.22 9:30AM EST	
+7.2.22 7:45AM EST	
+7.3.22 6:30AM PST	
+7.4.22 6:30AM PST (outside at 8am)
+7.5.22 6:30AM PST (outside at 7:50am)
+7.6.22 5:05AM PST (outside at 8AM)
+7.7.22 7:20AM PST (outside never)
 7.8.22 6:40AM PST	
-7.11.22 ~9:30AM	
-7.12.22 ~7:30AM	
-7.13.22 ~8:30AM	
-7.14.22 ~8:30AM but I actually woke up before; outside around 9:30 or 10	
-7.15.22 ~7:30AM 	
-7.16.22 kind of up around ~6:50AM really up by ~7:31AM	
-7.17.22 opened eyes around 8 probably awake around 7:30	
-7.18.12 ~7:30AM	
-7.19.22 ~7:30AM	
-7.20.22 ~6:59AM although probably I woke up earlier originally	
-7.21.22 7:30 was half awake earlier though	
-7.22.22 ~7:00am 	
-7.23.22 ~7:50am	
-7.25.22 ~7:40am	
-7.26.22 ~7:55am (was actually awake much earlier)	
-7.27.22 ~7:30	
-7.28.22 ~8	
-7.30.22 ~7	
-8.1.22 7.50ish	
-8.2.22 8:15ish	
-8.3.22 7:15ish (took forever to get out of bed, 7:50ish)	
-8.5.22 7:45ish	
- 8.7.22 8ish	
+7.11.22 9:30AM	
+7.12.22 7:30AM	
+7.13.22 8:30AM	
+7.14.22 8:30AM (but I actually woke up before; outside around 9:30 or 10	)
+7.15.22 7:30AM 	
+7.16.22 7:31 AM	
+7.17.22 7:30 AM
+7.18.12 7:30AM	
+7.19.22 7:30AM	
+7.20.22 6:59AM (although probably I woke up earlier originally	)
+7.21.22 7:30 (was half awake earlier though	)
+7.22.22 7:00am 	
+7.23.22 7:50am	
+7.25.22 7:40am	
+7.26.22 7:55am (was actually awake much earlier)	
+7.27.22 7:30 AM
+7.28.22 8:00 AM 	
+7.30.22 7:00 AM
+8.1.22 7:50	AM
+8.2.22 8:15	AM
+8.3.22 7:15 (took forever to get out of bed, 7:50)	
+8.5.22 7:45 AM
+8.7.22 8:00 AM
 8.8.22 7:36 AM	
-8.9.22 7:36ish	
-8.10.22 7:04ish although it’s possible I was up earlier than that. 	
-8.16.22 ~7:20	
-8.17.22 ~8:17	
-8.18.22 ~7:16	
-8.22.22 ~7:32	
-8.23.22 ~7:26	
-8.24.22 ~5:00	
-8.26.22 ~7:41	
-9.1.22 8:49	
-9.2.22 8 something (I think)	
-9.3.22 7ish	
-9.4.22 7:30ish	
-9.5.22 9ish	
-9.6.22 9:30ish	
-|	
-|	
-all 9:30ish	
-|	
-|	
-V	
-9.10.22 8:25ish	
-9.13.22 early-ish 5:30? 7:30? 	
-9.14.22 8:46ish	
-9.15.22 9ish maybe a little earlier	
-9.16.22 ~8:46	
-9.17.22 ~8:46ish	
-9.18.22 ~8:50	
-9.19.22 ~8:40	
-9.20.22 ~8:50 (by alarm)	
-9.21.22 ~9	
+8.9.22 7:36 AM	
+8.10.22 7:04 (although it’s possible I was up earlier than that.)
+8.16.22 7:20 AM
+8.17.22 8:17 AM
+8.18.22 7:16 AM
+8.22.22 7:32 AM
+8.23.22 7:26 AM
+8.24.22 5:00 AM
+8.26.22 7:41 AM
+9.1.22 8:49 AM
+9.2.22 8:00 AM 
+9.3.22 7:00 AM
+9.4.22 7:30	AM
+9.5.22 9:00 AM
+9.6.22 9:30	AM
+9.7.22 9:30	AM
+9.8.22 9:30	AM
+9.8.22 9:30	AM
+9.10.22 8:25 AM
+9.14.22 8:46 AM
+9.15.22 9:00 AM (maybe a little earlier	)
+9.16.22 8:46 AM	
+9.17.22 8:46 AM	
+9.18.22 8:50 AM	
+9.19.22 8:40 AM	
+9.20.22 8:50 (by alarm)	
+9.21.22 9:00 AM
 Sep 24, 2022 at 9:20 AM (Opened my eyes but woke up a lot earlier)	
 Sep 25, 2022 at 9:55 AM (Officially, but I had been up and down for hours before that)	
 Sep 26, 2022 at 9:03 AM (Opened my eyes at 9 but probably woke up closer to 8:30)	
-Sep 28, 2022 at ~9:21 AM	
+Sep 28, 2022 at 9:21 AM	
 Sep 29, 2022 at 8:48 AM (Woke up once at 4AM because it was too hot )	
 Oct 3, 2022 at 7:47 AM (Up earlier than usual maybe because of heat which may be from eating late. Or May be because of mock interview today)	
 Oct 4, 2022 at 7:42 AM	
@@ -114,16 +109,16 @@ Nov 29, 2022 at 9:13 AM
 Dec 1, 2022 at 10:47 AM (Up and down for several hours now)	
 Dec 3, 2022 at 8:39 AM	
 Dec 4, 2022 at 10:35 AM	
-Dec 5, 2022 at 10:15 AM (Maybe a like earlier ish)	
+Dec 5, 2022 at 10:15 AM (Maybe a like earlier )	
 Dec 6, 2022 at 10:09 AM	
 Dec 7, 2022 at 10:14 AM	
 Dec 7, 2022 at 10:15 AM ((Delete previous entry. Went to sleep after 4 wile up forest around 7 then again now. ))	
-Dec 8, 2022 at 9:48 AM (-15ish minutes )	
+Dec 8, 2022 at 9:48 AM (-15 minutes )	
 Dec 9, 2022 at 9:33 AM	
 Dec 10, 2022 at 9:49 AM	
 Dec 11, 2022 at 10:44 AM	
 Dec 12, 2022 at 10:54 AM	
-Dec 13, 2022 at ~8:00 AM	
+Dec 13, 2022 at 8:00 AM	
 Dec 14, 2022 at 8:48 AM (Had to pee but don't think I'm going back to sleep )	
 Dec 16, 2022 at 9:03 AM	
 Dec 18, 2022 at 11:28 AM	
@@ -153,10 +148,7 @@ Feb 8, 2023 at 1:13 PM
 Feb 9, 2023 at 11:15 AM (Woke up at 11, possibly a little earlier since I didn't have my sleep mask all the way on. )	
 Feb 10, 2023 at 9:14 AM (First woke up Around 6 🙄....)	
 Feb 11, 2023 at 9:58 AM (Been up and down since 7)	
-Feb 13, 2023 at 11:54 AM (ish)	
-	
-	
-ZSTANDARDIZEDCONTENT	
+Feb 13, 2023 at 11:54 AM ()	
 Feb 14, 2023 at 11:05 AM	
 Feb 15, 2023 at 11:56 AM (-30)	
 Feb 16, 2023 at 12:08 PM (Been up and down for a while )	
@@ -167,7 +159,7 @@ Feb 21, 2023 at 12:40 PM (-15 minutes )
 Feb 22, 2023 at 12:02 PM (This is when I opened my eyes but I probably started to wake up earlier)	
 Feb 24, 2023 at 12:26 PM	
 Feb 25, 2023 at 10:26 AM (Maybe 10 minutes ago)	
-Feb 26, 2023 at ~11:00AM	
+Feb 26, 2023 at 11:00AM	
 Feb 27, 2023 at 8:39 AM (At least for now. )	
 Feb 28, 2023 at 11:05 AM (A Little earlier maybe)	
 Mar 1, 2023 at 12:29 PM (Been struggling to get up for the better part of an hour )	
@@ -183,16 +175,16 @@ Mar 14, 2023 at 8:34 AM (🙄 )
 Mar 15, 2023 at 10:50 AM	
 Mar 16, 2023 at 10:19 AM (About 20 minutes ago, forcibly 😵‍💫 it's cool though )	
 Mar 17, 2023 at 10:24 AM (Up and awake 😎. I probably work up a little earlier though tbh )	
-Mar 19, 2023 at 6:51 AM (Minus ~90m )	
+Mar 19, 2023 at 6:51 AM (Minus 90m )	
 Mar 20, 2023 at 11:22 AM (-20 minutes)	
 Mar 21, 2023 at 12:22 PM	
-Mar 23, 2023 at 11: 58 AM	
+Mar 23, 2023 at 11:58 AM	
 Mar 26, 2023 at 1:35 PM	
 Apr 1, 2023 at 10:24-11:29 AM	
 Apr 3, 2023 at 12:01 PM (The second time)	
 Apr 5, 2023 at 12:13 PM	
 Apr 7, 2023 at 11:40 AM (Up for a while but struggling to get up )	
-Apr 9, 2023 at 9:57 AM (-20ish)	
+Apr 9, 2023 at 9:57 AM (-20)	
 Apr 10, 2023 at 11:25 AM (Roughly)	
 Apr 12, 2023 at 10:22 AM	
 Apr 13, 2023 at 6:23 AM (Probably will fall back asleep eventually )	
@@ -203,7 +195,7 @@ Apr 16, 2023 at 10:56 AM (Been trying to get up for a while)
 Apr 17, 2023 at 9:39 AM	
 Apr 18, 2023 at 7:28 AM (15-20 minutes earlier than this )	
 Apr 19, 2023 at 10:32 AM	
-Apr 20, 2023 at 9:35 ish	
+Apr 20, 2023 at 9:35 	
 Apr 21, 2023 at 10:35AM	
 Apr 22, 2023 at 9:05 AM	
 Apr 23, 2023 at 10:10 AM (Probably earlier actually)	
@@ -215,7 +207,6 @@ Apr 27, 2023 at 8:35 AM (May fall back asleep )
 Apr 29, 2023 at 7:13 AM	
 Apr 29, 2023 at 7:13 AM	
 Apr 30, 2023 at 9:17 AM (Went to sleep around 12)	
-	
 May 1, 2023 at 9:55 AM	
 May 2, 2023 at 8:27 AM	
 May 2, 2023 at 8:27 AM	
@@ -234,7 +225,7 @@ May 14, 2023 at 8:13 AM
 May 15, 2023 at 9:35 AM (Been up 20-30 minutes maybe a little longer)	
 May 16, 2023 at 10:11 AM	
 May 17, 2023 at 9:29 AM (Been up for 30-60 minutes)	
-May 18, 2023 at 7:04 AM (-30ish minutes )	
+May 18, 2023 at 7:04 AM (-30 minutes )	
 May 19, 2023 at 8:37 AM (For now )	
 May 20, 2023 at 8:48 AM (first woke up around 5:53)	
 May 21, 2022 at 8:30 AM (woke up a little before but couldn’t move)	
@@ -246,4 +237,23 @@ May 27, 2023 at 9:16 AM
 May 28, 2023 at 10:36 AM	
 May 29, 2023 at 10:39 AM (Was up earlier then fell back asleep)	
 May 30, 2023 at 2:03 PM	
-May 31, 2023 at 12:22 PM	
+May 31, 2023 at 12:22 PM
+Jun 1, 2023	10:45 AM	
+Jun 2, 2023	11:51 AM	
+Jun 3, 2023	11:16 AM	
+Jun 5, 2023	10:03 AM	
+Jun 5, 2023 at 10:03 AM
+Jun 7, 2023 at 10:56 AM (Closer to 10 actually)
+Jun 8, 2023 at 9:13 AM
+Jun 9, 2023 at 9:33 AM (Woke up at 7:30 then went back to sleep a bit )
+Jun 10, 2023 at 9:51 AM
+Jun 11, 2023 at 9:59 AM (out of bed at 10:10-10:15)
+Jun 12, 2023 at 6:30 AM
+Jun 13, 2023 at 7:09 AM
+Jun 14, 2023 at 10:50 AM
+Jun 15, 2023 at 9:11 AM
+Jun 16, 2023 at 9:23 AM
+Jun 17, 2023 at 6:01 AM
+Jun 19, 2023 at 9:19 AM
+Jun 20, 2023 at 10:17 AM
+Jun 22, 2023 at 10:00 AM
