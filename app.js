@@ -5,21 +5,11 @@ const moment = require('moment');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const { Pool, Client } = require('pg');
-const { getDates } = require('./testFunction');
-
-
+// const { getDates } = require('./testFunction');
+// import * as db from '../db.js' TODO: import using babel
+const db = require('./db/index.js');
 
 const app = express();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: false
-});
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: false
-});
 
 app.use(express.static('public'));
 
@@ -46,7 +36,7 @@ app.post('/send-file', async (req, res) => {
   }
 });
 
-app.get('/ping', async (req, res) => { 
+app.get('/ping', async (req, res) => {
   console.log('hit /send-file')
   res.send({ complete: true })
 });
@@ -75,8 +65,31 @@ app.get('/send-file-to-database', async (req, res) => {
   res.send(dateArray);
 })
 
+app.post('/log-event', async (req, res) => {
+  const eventType = req.body.eventType;
+  const eventTimeStamp = new Date();
+  const notes = req.body.notes;
+
+  const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
+
+  res.send(result.rows[0])
+})
+
+app.get('/promise-test', async (req, res) => {
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+
+      resolve('blarrrrh');
+    }, 5000);
+  });
+
+  let x = await p;
+
+  res.send(x);
+})
+
 
 const PORT = process.env.PORT || 3000;
 
-// app.listen(PORT, '192.168.1.229', () => console.log(`Server started on port ${PORT}`));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
