@@ -74,18 +74,36 @@ const buildSleepDataTable = async () => {
     }
 }
 
-const dropSleepDataTable = async () => {
-    try {
-        const dropEnumQuery = 'DROP TYPE sleep_event_type;';
-        const dropTableQuery = 'DROP TABLE sleep_data';
+const dropSleepDataTable = async (shouldRun) => {
+    if (shouldRun && client) {
+      try {
+        const checkTypeQuery = "SELECT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'sleep_event_type');";
+        const checkTableQuery = "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name = 'sleep_data');";
+  
+        const { rows: typeRows } = await client.query(checkTypeQuery);
+        const { rows: tableRows } = await client.query(checkTableQuery);
+  
+        const typeExists = typeRows[0].exists;
+        const tableExists = tableRows[0].exists;
 
-        await client.query(dropTableQuery);
-        await client.query(dropEnumQuery);
-    } catch (err) {
+        if (tableExists) {
+            const dropTableQuery = 'DROP TABLE sleep_data';
+            await client.query(dropTableQuery);
+            console.log('Table dropped successfully.');
+          }
+  
+        if (typeExists) {
+          const dropEnumQuery = 'DROP TYPE sleep_event_type;';
+          await client.query(dropEnumQuery);
+          console.log('Type dropped successfully.');
+        }
+  
+      } catch (err) {
         console.error(err);
+      }
     }
-}
-
+  };
+  
 const insertInDatabase = async (eventType, filePath) => {
     let dateData = await getDates(filePath)
 
