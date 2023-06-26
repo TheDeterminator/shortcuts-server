@@ -65,9 +65,10 @@ app.get('/send-file-to-database', async (req, res) => {
 })
 
 app.post('/log-event', async (req, res) => {
-  // add additional db logging in main db file follow node-postgres guide
+  // TODO: add additional db logging in main db file follow node-postgres guide
+  // TODO: Log the request body somewhere as well
   const eventType = req.body.eventType;
-  const eventTimeStamp = new Date();
+  const eventTimeStamp = req.body.eventTimeStamp || new Date();
   const notes = req.body.notes;
 
   const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
