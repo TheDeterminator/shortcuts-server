@@ -66,6 +66,7 @@ app.get('/send-file-to-database', async (req, res) => {
 })
 
 app.post('/log-event', async (req, res) => {
+  // add additional db logging in main db file follow node-postgres guide
   const eventType = req.body.eventType;
   const eventTimeStamp = new Date();
   const notes = req.body.notes;
