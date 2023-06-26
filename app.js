@@ -5,7 +5,6 @@ const moment = require('moment');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const { Pool, Client } = require('pg');
-// const { getDates } = require('./testFunction');
 // import * as db from '../db.js' TODO: import using babel
 const db = require('./db/index.js');
 
