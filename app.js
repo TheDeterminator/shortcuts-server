@@ -1,10 +1,10 @@
 const express = require('express');
 const url = require('url');
 const fs = require('fs').promises; // Use the promisified version
-const moment = require('moment');
+// const moment = require('moment');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-const { Pool, Client } = require('pg');
+// const { Pool, Client } = require('pg');
 // import * as db from '../db.js' TODO: import using babel
 const db = require('./db/index.js');
 
@@ -71,9 +71,18 @@ app.post('/log-event', async (req, res) => {
   const eventTimeStamp = req.body.eventTimeStamp || new Date();
   const notes = req.body.notes;
 
-  const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
+  try {
+    const result = await db.query('INSERT INTO slefep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
+    // console.log({result})
+    res.send(result.rows[0])
+  } 
+  catch (err) {
+    // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
+    res.send(err);
+  }
+  
 
-  res.send(result.rows[0])
+  
 })
 
 app.get('/promise-test', async (req, res) => {
