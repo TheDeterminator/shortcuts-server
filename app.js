@@ -72,7 +72,7 @@ app.post('/log-event', async (req, res) => {
   const notes = req.body.notes;
 
   try {
-    const result = await db.query('INSERT INTO slefep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
+    const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
     // console.log({result})
     res.send(result.rows[0])
   } 
