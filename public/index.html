@@ -7,14 +7,87 @@
 </head>
 
 <body>
-    <div class="button-container">
+    <!-- <div class="button-container">
         <button id="wakeUpTime">Wake Up Time</button>
         <button id="goToBedTime">Go To Bed Time</button>
         <button id="napTime">Nap Time</button>
         <button id="sleepNotes">Notes</button>
         <button id="getScreenWidth">Get Screen Width</button>
-    </div>
+    </div> -->
 
+
+    <button id="btn">Get Events</button>
+
+<table id="eventsTable">
+    <thead>
+        <tr>
+            <!-- Assume that you know the column names of sleep_data table. Adjust as needed. -->
+            <th>Time</th>
+            <th>Event</th>
+            <th>Notes</th>
+            <!-- Add more th elements here for each column in the table -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be added here dynamically -->
+    </tbody>
+</table>
+
+<script>
+    (function() {
+        fetch('/get-events', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                eventType: 'wake_up',  // replace 'wake_up' with value passed from dropdown box
+                numResults: 15  // replace 15 with value passed from dropdown box
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('eventsTable').getElementsByTagName('tbody')[0];
+    
+            // clear the table before adding new rows
+            table.innerHTML = '';
+
+            /*
+            options = {
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+  timeZone: "Australia/Sydney",
+  timeZoneName: "short",
+};
+console.log(new Intl.DateTimeFormat("en-AU", options).format(date));
+// "2:00:00 pm AEDT"
+            
+            */
+    
+            // create new rows
+            data.forEach(row => {
+                console.log({row})
+                const newRow = table.insertRow();
+    
+                // create a new cell for each column in the row
+                // Assume that you know the column names of sleep_data table. Adjust as needed.
+                const cell1 = newRow.insertCell();
+                cell1.textContent = Date(row.event_timestamp);
+                cell1.textContent = row.event_timestamp;
+    
+                const cell2 = newRow.insertCell();
+                cell2.textContent = row.event_type;
+
+                const cell3 = newRow.insertCell();
+                cell3.textContent = row.notes;
+    
+            });
+        })
+        .catch(err => console.error(err));
+    })();
+    </script>
+    
     <script src="app.js"></script>
 
 </body>
