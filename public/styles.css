@@ -58,6 +58,10 @@ table, th, td {
     background-color: white;
 }
 
+table {
+    width: 75%
+}
+
 #table-container {
     display: flex;
     justify-content: center;
