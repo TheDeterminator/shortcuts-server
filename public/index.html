@@ -73,7 +73,7 @@ console.log(new Intl.DateTimeFormat("en-AU", options).format(date));
                 // create a new cell for each column in the row
                 // Assume that you know the column names of sleep_data table. Adjust as needed.
                 const cell1 = newRow.insertCell();
-                cell1.textContent = Date(row.event_timestamp);
+                cell1.textContent = new Date(row.event_timestamp).toString();
                 cell1.textContent = row.event_timestamp;
     
                 const cell2 = newRow.insertCell();
