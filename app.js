@@ -98,15 +98,13 @@ app.post('/get-events', async (req, res) => {
     ORDER BY event_timestamp DESC
     LIMIT $2;
     `, [eventType, numResultsToReturn]);
-    console.log({result})
+    console.log({ result })
     res.send(result.rows)
   }
   catch (err) {
     // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
     res.send(err);
   }
-
-
 })
 
 app.get('/promise-test', async (req, res) => {

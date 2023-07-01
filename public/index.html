@@ -7,6 +7,15 @@
 </head>
 
 <body>
+    <select id="rowLimit">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15" selected>15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+    </select>
+
     <div id="table-container">
         <table id="eventsTable">
             <thead>
@@ -22,7 +31,10 @@
     </div>
 
     <script>
-        (function () {
+        function getEvents() {
+            const rowLimitSelect = document.getElementById('rowLimit');
+            const rowLimit = rowLimitSelect.options[rowLimitSelect.selectedIndex].value;
+
             fetch('/get-events', {
                 method: 'POST',
                 headers: {
@@ -30,7 +42,7 @@
                 },
                 body: JSON.stringify({
                     eventType: 'wake_up',  // replace 'wake_up' with value passed from dropdown box
-                    numResults: 15  // replace 15 with value passed from dropdown box
+                    numResults: rowLimit
                 })
             })
                 .then(response => response.json())
@@ -55,6 +67,14 @@
                     });
                 })
                 .catch(err => console.error(err));
+        }
+
+        (function () {
+            const rowLimitSelect = document.getElementById('rowLimit');
+            rowLimitSelect.onchange = getEvents
+
+            getEvents(rowLimit)
+
         })();
     </script>
 
