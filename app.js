@@ -88,13 +88,11 @@ app.post('/log-event', async (req, res) => {
 app.post('/get-events', async (req, res) => {
   const eventType = req.body.eventType;
   const numResultsToReturn = req.body.numResults || 10;
-  // const eventTimeStamp = req.body.eventTimeStamp || new Date();
-  // const notes = req.body.notes;
 
   try {
     const result = await db.query(`SELECT *
     FROM sleep_data
-    WHERE event_type = $1
+    WHERE event_type = ANY($1::sleep_event_type[])
     ORDER BY event_timestamp DESC
     LIMIT $2;
     `, [eventType, numResultsToReturn]);

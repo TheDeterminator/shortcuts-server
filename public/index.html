@@ -16,6 +16,18 @@
         <option value="30">30</option>
     </select>
 
+
+    <div id="event-type-container">
+        <input type="checkbox" id="wake_up" name="eventType" value="wake_up">
+        <label for="wake_up">Wake up</label><br>
+        <input type="checkbox" id="fap" name="eventType" value="fap">
+        <label for="fap">Fap</label><br>
+        <input type="checkbox" id="go_to_sleep" name="eventType" value="go_to_sleep">
+        <label for="go_to_sleep">Sleep</label><br>
+        <input type="checkbox" id="nap" name="eventType" value="nap">
+        <label for="nap">Nap</label>
+    </div>
+
     <div id="table-container">
         <table id="eventsTable">
             <thead>
@@ -35,13 +47,20 @@
             const rowLimitSelect = document.getElementById('rowLimit');
             const rowLimit = rowLimitSelect.options[rowLimitSelect.selectedIndex].value;
 
+            // Can i abstract this into a function?
+            const eventTypeCheckboxInputs = document.querySelectorAll('input[name="eventType"]:checked');
+            let eventTypes = [];
+            eventTypeCheckboxInputs.forEach((checkboxInput) => {
+                eventTypes.push(checkboxInput.value);
+            });
+
             fetch('/get-events', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    eventType: 'wake_up',  // replace 'wake_up' with value passed from dropdown box
+                    eventType: eventTypes,
                     numResults: rowLimit
                 })
             })
@@ -73,7 +92,11 @@
             const rowLimitSelect = document.getElementById('rowLimit');
             rowLimitSelect.onchange = getEvents
 
-            getEvents(rowLimit)
+            const eventTypeCheckboxInputs = document.querySelectorAll('input[name="eventType"]');
+
+            eventTypeCheckboxInputs.forEach(checkboxInput => checkboxInput.onchange = getEvents)
+
+            getEvents()
 
         })();
     </script>
