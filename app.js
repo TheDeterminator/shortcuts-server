@@ -105,6 +105,26 @@ app.post('/get-events', async (req, res) => {
   }
 })
 
+app.delete('/delete-event/:id', async (req, res) => {
+  const eventId = req.params.id;
+
+  try {
+      const result = await db.query(`DELETE FROM sleep_data WHERE id = $1`, [eventId]);
+
+      if (result.rowCount === 0) {
+          // If no rows were deleted, the event with this ID does not exist
+          res.status(404).send('Event not found');
+      } else {
+          // If the row was deleted successfully, send a success message
+          res.send('Event deleted successfully');
+      }
+  }
+  catch (err) {
+      // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
+      res.status(500).send(err);
+  }
+});
+
 app.get('/promise-test', async (req, res) => {
   const p = new Promise((resolve, reject) => {
     setTimeout(() => {

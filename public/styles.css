@@ -9,15 +9,15 @@ body {
     padding: 20px;
 }
 
-.button-container {
+/* .button-container {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
-}
+} */
 
-button {
+/* button {
     width: 160px;
     height: 160px;
     border: none;
@@ -32,25 +32,25 @@ button {
     color: black;
     text-decoration: none;
     transition: 0.3s;
-}
+} */
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
     button {
         width: 120px;
         height: 120px;
         font-size: 1em;
         margin: 15px;
     }
-}
+} */
 
-button:hover {
+/* button:hover {
     transform: scale(1.1);
 }
 
 button:active {
     background-color: #888;
     ;
-}
+} */
 
 table, th, td {
     border: 1px solid black;

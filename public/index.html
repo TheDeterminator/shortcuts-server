@@ -18,11 +18,11 @@
 
 
     <div id="event-type-container">
-        <input type="checkbox" id="wake_up" name="eventType" value="wake_up">
+        <input type="checkbox" id="wake_up" name="eventType" value="wake_up" checked>
         <label for="wake_up">Wake up</label><br>
         <input type="checkbox" id="fap" name="eventType" value="fap">
         <label for="fap">Fap</label><br>
-        <input type="checkbox" id="go_to_sleep" name="eventType" value="go_to_sleep">
+        <input type="checkbox" id="go_to_sleep" name="eventType" value="go_to_sleep" checked>
         <label for="go_to_sleep">Sleep</label><br>
         <input type="checkbox" id="nap" name="eventType" value="nap">
         <label for="nap">Nap</label>
@@ -42,7 +42,28 @@
         </table>
     </div>
 
+    <button>X</button>
+
     <script>
+        function deleteRow(event) {
+            const row = event.target.parentNode.parentNode;
+            const id = row.dataset.id;
+
+            // Send a DELETE request to the server
+            fetch(`/delete-event/${id}`, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // If the server successfully processed the DELETE request,
+                        // remove the row from the table
+                        row.parentNode.removeChild(row);
+                    } else {
+                        console.error(`Server error: ${response.status}`);
+                    }
+                })
+                .catch(err => console.error(err));
+        }
         function getEvents() {
             const rowLimitSelect = document.getElementById('rowLimit');
             const rowLimit = rowLimitSelect.options[rowLimitSelect.selectedIndex].value;
@@ -74,6 +95,10 @@
                     data.forEach(row => {
                         const newRow = table.insertRow();
 
+                        // Set the data-id attribute to the unique ID associated with this row
+                        newRow.dataset.id = row.id;
+
+
                         const cell1 = newRow.insertCell();
                         cell1.textContent = new Date(row.event_timestamp);
 
@@ -82,6 +107,13 @@
 
                         const cell3 = newRow.insertCell();
                         cell3.textContent = row.notes;
+
+                        // Create a new cell with a button that can delete this row
+                        const cell4 = newRow.insertCell();
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'X';
+                        deleteButton.addEventListener('click', deleteRow);
+                        cell4.appendChild(deleteButton);
 
                     });
                 })
