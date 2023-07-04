@@ -72,7 +72,7 @@ app.post('/log-event', async (req, res) => {
   const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp.replace(' at ', ' ')).toUTCString().slice(0,25) : new Date().toUTCString().slice(0,25);
   const notes = req.body.notes;
 
-  console.log(typeof req.body.eventTimeStamp)
+  console.log(req.body.eventTimeStamp)
   console.log({eventTimeStamp})
   try {
     const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
