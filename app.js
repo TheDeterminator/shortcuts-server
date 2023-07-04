@@ -68,9 +68,12 @@ app.post('/log-event', async (req, res) => {
   // TODO: add additional db logging in main db file follow node-postgres guide
   // TODO: Log the request body somewhere as well
   const eventType = req.body.eventType;
-  const eventTimeStamp = req.body.eventTimeStamp || new Date();
+  // Is this stable? I think so, but maybe more validatiosn would be good
+  const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp.replace(' at ', ' ')).toUTCString().slice(0,25) : new Date().toUTCString().slice(0,25);
   const notes = req.body.notes;
 
+  console.log(typeof req.body.eventTimeStamp)
+  console.log({eventTimeStamp})
   try {
     const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_type, notes) VALUES ($1, $2, $3) RETURNING *;', [eventTimeStamp, eventType, notes]);
     // console.log({result})
@@ -80,9 +83,6 @@ app.post('/log-event', async (req, res) => {
     // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
     res.send(err);
   }
-
-
-
 })
 
 app.post('/get-events', async (req, res) => {
@@ -109,19 +109,19 @@ app.delete('/delete-event/:id', async (req, res) => {
   const eventId = req.params.id;
 
   try {
-      const result = await db.query(`DELETE FROM sleep_data WHERE id = $1`, [eventId]);
+    const result = await db.query(`DELETE FROM sleep_data WHERE id = $1`, [eventId]);
 
-      if (result.rowCount === 0) {
-          // If no rows were deleted, the event with this ID does not exist
-          res.status(404).send('Event not found');
-      } else {
-          // If the row was deleted successfully, send a success message
-          res.send('Event deleted successfully');
-      }
+    if (result.rowCount === 0) {
+      // If no rows were deleted, the event with this ID does not exist
+      res.status(404).send('Event not found');
+    } else {
+      // If the row was deleted successfully, send a success message
+      res.send('Event deleted successfully');
+    }
   }
   catch (err) {
-      // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
-      res.status(500).send(err);
+    // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
+    res.status(500).send(err);
   }
 });
 
