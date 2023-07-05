@@ -7,6 +7,9 @@ require('dotenv').config();
 // const { Pool, Client } = require('pg');
 // import * as db from '../db.js' TODO: import using babel
 const db = require('./db/index.js');
+const axios = require('axios');
+const cheerio = require('cheerio');
+
 
 const app = express();
 
@@ -70,11 +73,11 @@ app.post('/log-event', async (req, res) => {
   const eventType = req.body.eventType;
   // Is this stable? I think so, but maybe more validatiosn would be good
   console.log('>>>>>>', req.body.eventTimeStamp)
-  const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp.replace(' at ', ' ')) : new Date().toUTCString().slice(0,25);
+  const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp.replace(' at ', ' ')) : new Date().toUTCString().slice(0, 25);
   const notes = req.body.notes;
 
   // console.log(req.body.eventTimeStamp)
-  console.log({eventTimeStamp})
+  console.log({ eventTimeStamp })
   console.log('new Date().toUTCString()', new Date().toUTCString())
   console.log('new Date()', new Date())
   try {
@@ -140,6 +143,45 @@ app.get('/promise-test', async (req, res) => {
 
   res.send(x);
 })
+
+app.post('/frequency', async (req, res) => {
+  const urlArrayString = req.body.urls; // Array
+  if (!urlArrayString) {
+    return res.status(400).json({ error: 'Url is required' });
+  }
+
+  const urls = urlArrayString.split('\n'); // validate input to make sure they are all valid urls
+
+  const titles = await Promise.all(urls.map(async url => {
+    try {
+      // Fetch the page
+      const response = await axios.get(url);
+
+      // Load page into cheerio
+      const $ = cheerio.load(response.data);
+
+      // Get metadata
+      const metadata = {
+        url: url,
+        title: $('head title').text().replace(' - Google Search', ''), // You could make the replace logic a method which would give you an excuse to make the object a class
+        favicon: $('link[rel="shortcut icon"]').attr('href'),
+        description: $('meta[name=description]').attr('content'),
+        image: $('meta[property="og:image"]').attr('content')
+      };
+      return metadata.title;
+    } catch (error) {
+      console.error('Error fetching url:', url, error);
+      return ''; // Return empty string for failed fetches
+    }
+  }));
+
+  // Remove any empty titles (from failed fetches)
+  const validTitles = titles.filter(title => title !== '');
+
+  // Send the titles as response
+  res.send(validTitles.join('\n'))
+});
+
 
 
 const PORT = process.env.PORT || 3000;
