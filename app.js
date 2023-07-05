@@ -73,7 +73,7 @@ app.post('/log-event', async (req, res) => {
   const eventType = req.body.eventType;
   // Is this stable? I think so, but maybe more validatiosn would be good
   console.log('>>>>>>', req.body.eventTimeStamp)
-  const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp.replace(' at ', ' ')) : new Date();
+  const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp) : new Date();
   const notes = req.body.notes;
 
   try {
