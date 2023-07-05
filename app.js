@@ -1,11 +1,9 @@
 const express = require('express');
 const url = require('url');
 const fs = require('fs').promises; // Use the promisified version
-// const moment = require('moment');
+
 const bodyParser = require('body-parser');
 require('dotenv').config();
-// const { Pool, Client } = require('pg');
-// import * as db from '../db.js' TODO: import using babel
 const db = require('./db/index.js');
 const axios = require('axios');
 const cheerio = require('cheerio');
