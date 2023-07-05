@@ -100,7 +100,7 @@
 
 
                         const cell1 = newRow.insertCell();
-                        cell1.textContent = new Date(row.event_timestamp);
+                        cell1.textContent = new Date(row.event_timestamp_with_timezone);
 
                         const cell2 = newRow.insertCell();
                         cell2.textContent = row.event_type;

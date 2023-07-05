@@ -99,7 +99,7 @@ app.post('/get-events', async (req, res) => {
     const result = await db.query(`SELECT *
     FROM sleep_data
     WHERE event_type = ANY($1::sleep_event_type[])
-    ORDER BY event_timestamp DESC
+    ORDER BY event_timestamp_with_timezone DESC
     LIMIT $2;
     `, [eventType, numResultsToReturn]);
     console.log({ result })
