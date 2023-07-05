@@ -41,7 +41,7 @@ app.get('/ping', async (req, res) => {
   res.send({ complete: true })
 });
 
-app.post('/search', (req, res) => {
+app.post('/gpt-redirect', (req, res) => {
   const searchUrl = req.body.url;
   const parsedUrl = url.parse(searchUrl, true);
   const searchTerm = parsedUrl.query.q;
