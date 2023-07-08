@@ -7,9 +7,13 @@ require('dotenv').config();
 const db = require('./db/index.js');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { pollDatabaseAndSendEmail, sendEmailReminder } = require('./serverUtils.js')
 
 
 const app = express();
+
+let intervalId;
+
 
 app.use(express.static('public'));
 
@@ -65,6 +69,19 @@ app.get('/send-file-to-database', async (req, res) => {
   res.send(dateArray);
 })
 
+app.get('/test-fap', async (req, res) => {
+  try {
+    const mostRecentFapQueryResult = await db.query(`SELECT * from sleep_data WHERE event_type = 'fap' ORDER BY event_timestamp_with_timezone DESC LIMIT 1;`);
+    const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
+    const mostRecentFap = mostRecentFapQueryResultRows[0]
+    const monstRecentFapDuration = mostRecentFap.duration;
+    res.send(mostRecentFapQueryResult)
+  } catch (err) {
+    console.log({ err })
+    res.send(err)
+  }
+})
+
 app.post('/log-event', async (req, res) => {
   // TODO: add additional db logging in main db file follow node-postgres guide
   // TODO: Log the request body somewhere as well
@@ -74,13 +91,54 @@ app.post('/log-event', async (req, res) => {
   const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp) : new Date();
   const notes = req.body.notes;
 
+  // NEW TODO: Finish updating
+  // const mostRecentFapQueryResult = await db.query(`SELECT * from sleep_data WHERE event_type = 'fap' ORDER BY event_timestamp_with_timezone DESC LIMIT 1;`);
+  // const fapIsEmpty = Object.keys(mostRecentFapQueryResult).length === 0;
+  // const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
+  // const mostRecentFap = mostRecentFapQueryResultRows ? mostRecentFapQueryResultRows[0] : {}
+  // const fapCompleted = (!fapIsEmpty && mostRecentFap.duration);
+  // const fapIncomplete = !fapCompleted
+  // const intervalNotCreated = !intervalId
+  // let timeElapsedInMinutes
+
+  if (eventType === 'fap') {
+    const mostRecentFapQueryResult = await db.query(`SELECT * from sleep_data WHERE event_type = 'fap' ORDER BY event_timestamp_with_timezone DESC LIMIT 1;`);
+    
+  const fapIsEmpty = mostRecentFapQueryResult.rows.length === 0;
+  const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
+  const mostRecentFap = mostRecentFapQueryResultRows ? mostRecentFapQueryResultRows[0] : {}
+  const fapCompleted = (!fapIsEmpty && mostRecentFap.duration);
+  // return res.send(mostRecentFap)
+  const fapIncomplete = !fapCompleted
+  const intervalNotCreated = !intervalId
+  let timeElapsedInMinutes
+
+    if ((fapIsEmpty || fapIncomplete)) {
+      if (intervalNotCreated) {
+        // intervalId = setInterval(pollDatabaseAndSendEmail, 15 * 60 * 1000);  // 15 minutes
+        intervalId = setInterval(pollDatabaseAndSendEmail, 15000);  // 15 seconds
+        console.log({intervalId})
+      } else {
+        timeElapsedInMinutes = Math.floor(((eventTimeStamp - mostRecentFap.event_timestamp) / 1000) / 60)
+        clearInterval(intervalId)
+      }
+    }
+  }
+
+  // NOTE: I don't think you need to poll the database, just come through first time, set reminder interval, come through second time, update fap event and cancel interval
+
+  // NEW
+  console.log('does it ever get here?')
   try {
+    // TODO: actually trying to do the entry the way you are now is not going to to work, you need a separate query that updates a preexisitnng fap row...EVERYTHING ELSE WORKS
     const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_timestamp_with_timezone, event_type, notes) VALUES ($1, $2, $3, $4) RETURNING *;', [eventTimeStamp, eventTimeStamp, eventType, notes]);
+    // const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_timestamp_with_timezone, event_type, notes, duration) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [eventTimeStamp, eventTimeStamp, eventType, notes, timeElapsedInMinutes || null]);
     // console.log({result})
     res.send(result.rows[0])
   }
   catch (err) {
-    // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
+    // console.error('catch error' , err, 'err.__proto__', Object.keys(err.__proto__));
+    console.log({err})
     res.send(err);
   }
 })
