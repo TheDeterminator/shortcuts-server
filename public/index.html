@@ -15,6 +15,10 @@
         <option value="25">25</option>
         <option value="30">30</option>
     </select>
+    <!-- <div>
+        <button id="connect-to-server">Connect</button>
+        <button id="close-connection">Close</button>
+    </div> -->
 
 
     <div id="event-type-container">
@@ -134,6 +138,13 @@
     </script>
 
     <script src="app.js"></script>
+    <!-- <script>
+        const evtSource = new EventSource('http://localhost:3000/events');
+
+        evtSource.onmessage = (event) => {
+            console.log(`Received event: ${event.data}`)
+        }
+    </script> -->
 
 </body>
 

@@ -176,6 +176,27 @@ app.post('/frequency', async (req, res) => {
   res.send(validTitles.join('\n'))
 });
 
+// app.get('/events', (req, res) => {
+//   res.setHeader('Content-Type', 'text/event-stream');
+//   res.setHeader('Cache-Control', 'no-cache');
+//   res.setHeader('Connection', 'keep-alive');
+//   res.flushHeaders();
+
+//   // send an event every second
+//   let count = 0;
+//    let  intervalId = setInterval(() => {
+//     res.write(`data: ${count}\n\n`);  // the \n\n is important - it signals the end of an event
+//     count++;
+//   }, 1000);
+
+//   // If the client closes the connection, stop sending events
+//   req.on('close', () => {
+//     clearInterval(intervalId);
+//     console.log('connection ended')
+//     res.end();
+//   });
+// });
+
 
 
 const PORT = process.env.PORT || 3000;
