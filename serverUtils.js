@@ -3,7 +3,7 @@ const db = require('./db/index.js');
 
 // const nodemailer = require('nodemailer')
 
-function sendEmailReminder(email) {
+function sendEmailReminder() {
     console.log('Please update your innfo')
     // let transporter = nodemailer.createTransport({
     //     service: 'gmail',
@@ -29,17 +29,4 @@ function sendEmailReminder(email) {
     // });
 }
 
-async function pollDatabaseAndSendEmail() {
-    // const res = await db.query("SELECT * FROM your_table WHERE your_condition");
-    console.log('update fap entry')
-    // if (res.rows.length > 0) {
-    //     // If the condition is met, send email
-    //     const email = res.rows[0].email;
-    //     sendEmailReminder(email);
-    // } else {
-    //     // If the condition is no longer met, clear the interval
-    //     clearInterval(intervalId);
-    // }
-}
-
-module.exports = {pollDatabaseAndSendEmail, sendEmailReminder}
+module.exports = { sendEmailReminder }

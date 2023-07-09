@@ -7,7 +7,7 @@ require('dotenv').config();
 const db = require('./db/index.js');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { pollDatabaseAndSendEmail, sendEmailReminder } = require('./serverUtils.js')
+const { sendEmailReminder } = require('./serverUtils.js')
 
 
 const app = express();
@@ -91,54 +91,33 @@ app.post('/log-event', async (req, res) => {
   const eventTimeStamp = req.body.eventTimeStamp ? new Date(req.body.eventTimeStamp) : new Date();
   const notes = req.body.notes;
 
-  // NEW TODO: Finish updating
-  // const mostRecentFapQueryResult = await db.query(`SELECT * from sleep_data WHERE event_type = 'fap' ORDER BY event_timestamp_with_timezone DESC LIMIT 1;`);
-  // const fapIsEmpty = Object.keys(mostRecentFapQueryResult).length === 0;
-  // const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
-  // const mostRecentFap = mostRecentFapQueryResultRows ? mostRecentFapQueryResultRows[0] : {}
-  // const fapCompleted = (!fapIsEmpty && mostRecentFap.duration);
-  // const fapIncomplete = !fapCompleted
-  // const intervalNotCreated = !intervalId
-  // let timeElapsedInMinutes
 
   if (eventType === 'fap') {
     const mostRecentFapQueryResult = await db.query(`SELECT * from sleep_data WHERE event_type = 'fap' ORDER BY event_timestamp_with_timezone DESC LIMIT 1;`);
-    
-  const fapIsEmpty = mostRecentFapQueryResult.rows.length === 0;
-  const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
-  const mostRecentFap = mostRecentFapQueryResultRows ? mostRecentFapQueryResultRows[0] : {}
-  const fapCompleted = (!fapIsEmpty && mostRecentFap.duration);
-  // return res.send(mostRecentFap)
-  const fapIncomplete = !fapCompleted
-  const intervalNotCreated = !intervalId
-  let timeElapsedInMinutes
+    const mostRecentFapQueryResultRows = mostRecentFapQueryResult.rows
+    const mostRecentFap = mostRecentFapQueryResultRows ? mostRecentFapQueryResultRows[0] : {}
 
-    if ((fapIsEmpty || fapIncomplete)) {
-      if (intervalNotCreated) {
-        // intervalId = setInterval(pollDatabaseAndSendEmail, 15 * 60 * 1000);  // 15 minutes
-        intervalId = setInterval(pollDatabaseAndSendEmail, 15000);  // 15 seconds
-        console.log({intervalId})
-      } else {
-        timeElapsedInMinutes = Math.floor(((eventTimeStamp - mostRecentFap.event_timestamp) / 1000) / 60)
-        clearInterval(intervalId)
-      }
+    const intervalIsActive = intervalId
+
+    let timeElapsedInMinutes
+
+    if (intervalIsActive) {
+      timeElapsedInMinutes = Math.floor(((eventTimeStamp - mostRecentFap.event_timestamp) / 1000) / 60)
+      clearInterval(intervalId)
+      intervalId = null;
+      const result = await db.query(`UPDATE sleep_data SET duration = INTERVAL '${timeElapsedInMinutes}' MINUTE WHERE id = '${mostRecentFap.id}' `)
+      return res.send(result.rows)
+    } else {
+      // intervalId = setInterval(pollDatabaseAndSendEmail, 15 * 60 * 1000);  // 15 minutes
+      intervalId = setInterval(sendEmailReminder, 1000);  // 15 seconds
     }
   }
 
-  // NOTE: I don't think you need to poll the database, just come through first time, set reminder interval, come through second time, update fap event and cancel interval
-
-  // NEW
-  console.log('does it ever get here?')
   try {
-    // TODO: actually trying to do the entry the way you are now is not going to to work, you need a separate query that updates a preexisitnng fap row...EVERYTHING ELSE WORKS
     const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_timestamp_with_timezone, event_type, notes) VALUES ($1, $2, $3, $4) RETURNING *;', [eventTimeStamp, eventTimeStamp, eventType, notes]);
-    // const result = await db.query('INSERT INTO sleep_data (event_timestamp, event_timestamp_with_timezone, event_type, notes, duration) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [eventTimeStamp, eventTimeStamp, eventType, notes, timeElapsedInMinutes || null]);
-    // console.log({result})
     res.send(result.rows[0])
   }
   catch (err) {
-    // console.error('catch error' , err, 'err.__proto__', Object.keys(err.__proto__));
-    console.log({err})
     res.send(err);
   }
 })
@@ -158,7 +137,6 @@ app.post('/get-events', async (req, res) => {
     res.send(result.rows)
   }
   catch (err) {
-    // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
     res.send(err);
   }
 })
@@ -178,7 +156,6 @@ app.delete('/delete-event/:id', async (req, res) => {
     }
   }
   catch (err) {
-    // console.error('catch error', err, 'err.__proto__', Object.keys(err.__proto__));
     res.status(500).send(err);
   }
 });
@@ -233,29 +210,6 @@ app.post('/frequency', async (req, res) => {
   // Send the titles as response
   res.send(validTitles.join('\n'))
 });
-
-// app.get('/events', (req, res) => {
-//   res.setHeader('Content-Type', 'text/event-stream');
-//   res.setHeader('Cache-Control', 'no-cache');
-//   res.setHeader('Connection', 'keep-alive');
-//   res.flushHeaders();
-
-//   // send an event every second
-//   let count = 0;
-//    let  intervalId = setInterval(() => {
-//     res.write(`data: ${count}\n\n`);  // the \n\n is important - it signals the end of an event
-//     count++;
-//   }, 1000);
-
-//   // If the client closes the connection, stop sending events
-//   req.on('close', () => {
-//     clearInterval(intervalId);
-//     console.log('connection ended')
-//     res.end();
-//   });
-// });
-
-
 
 const PORT = process.env.PORT || 3000;
 
