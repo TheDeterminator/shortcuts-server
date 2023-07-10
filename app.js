@@ -109,7 +109,8 @@ app.post('/log-event', async (req, res) => {
       return res.send(result.rows)
     } else {
       // intervalId = setInterval(pollDatabaseAndSendEmail, 15 * 60 * 1000);  // 15 minutes
-      intervalId = setInterval(sendEmailReminder, 1000);  // 15 seconds
+      intervalId = setInterval(sendEmailReminder, 1000 * 30);  // 15 seconds
+      console.log(`Interval set: ${intervalId}`)
     }
   }
 
@@ -211,7 +212,8 @@ app.post('/frequency', async (req, res) => {
   res.send(validTitles.join('\n'))
 });
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
